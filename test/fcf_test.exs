@@ -22,14 +22,17 @@ defmodule FcfTest do
     assert(res = {1,2,3})
   end
   test "bypasses cache when it should" do
+  	IO.puts "uncached"
   	t1 = :erlang.now
  		FCF.run(Tst,:wait,[])
  		t2 = :erlang.now
  		assert(:timer.now_diff(t2,t1) >= 200000)
+ 		IO.puts "cached"	
  		t1 = :erlang.now
  		FCF.run(Tst,:wait,[])
  		t2 = :erlang.now
  		assert(:timer.now_diff(t2,t1) < 200000)
+ 		IO.puts "force cached"
  		t1 = :erlang.now
  		FCF.run(Tst,:wait,[],[force: true])
  		t2 = :erlang.now
