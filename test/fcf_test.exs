@@ -38,4 +38,7 @@ defmodule FcfTest do
  		t2 = :erlang.now
  		assert(:timer.now_diff(t2,t1) >= 200000)
   end
+  test "throttles" do
+    res = FCF.run(Tst,:boink,[],[throttle: :w1s])
+  end
 end

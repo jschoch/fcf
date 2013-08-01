@@ -1,9 +1,23 @@
 defmodule FCF do
+  def throttle(name) do
+    how_long = Throttlex.Server.throttle(name)
+    :timer.sleep(how_long)
+    Throttlex.Server.done(name)
+  end
   def run(module,fun,args,options // []) do
+    #@doc """
+    #options
+      #force: in [true,false}
+      #throttle: throttle_name
+    #"""
     hash = :erlang.phash2("#{inspect module}#{inspect fun}#{inspect args}",4294967296)
     case has(hash) do
       :false -> 
         #IO.puts "no cache, getting data: #{inspect hash}"
+        case Keyword.get(options,:throttle) do
+          nil -> nil
+          name -> throttle(name)
+        end
         res = apply(module,fun,args)
         store(res,hash,options)
       res when options != [] ->   
