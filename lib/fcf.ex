@@ -1,8 +1,6 @@
 defmodule FCF do
   def throttle(name) do
-    how_long = Throttlex.Server.throttle(name)
-    :timer.sleep(how_long)
-    Throttlex.Server.done(name)
+    Throttlex.Server.auto_throttle(name)
   end
   def run(module,fun,args,options // []) do
     #@doc """
