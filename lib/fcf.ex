@@ -16,7 +16,7 @@ defmodule FCF do
     force = Keyword.get(options,:force,false)
     on = Keyword.get(options,:debug,false)
     args_string = "#{inspect module}#{inspect fun}#{inspect args}"
-    dbg on, "FCF.run: args_string: #{args}"
+    dbg on, "FCF.run: args_string: #{args_string}"
     hash = :erlang.phash2(args,4294967296)
     case has(hash) do
       :false -> 
