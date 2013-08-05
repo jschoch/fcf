@@ -21,6 +21,11 @@ defmodule FcfTest do
     res = FCF.run(Tst,:boink,[]) 
     assert(res = {1,2,3})
   end
+  test "handles an error" do
+  	# TODO: get this working
+ 	nxdomain = "octcobucks.com"
+ 	res = FCF.run(:inet,:gethostbyaddr,[nxdomain],throttle: :w1s)
+  end
   test "bypasses cache when it should" do
   	IO.puts "uncached"
   	t1 = :erlang.now
